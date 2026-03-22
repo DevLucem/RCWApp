@@ -1,0 +1,17 @@
+{
+  "name": "RequestCall (RCWApp)",
+  "short_name": "RCWApp",
+  "description": "A simple, fast, and elegant REST API testing tool for developers. Test and manage API requests with a clean interface, persistent history, and workspace management.",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#22c55e",
+  "background_color": "#1a211a",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
