@@ -1279,7 +1279,7 @@ export default function Home() {
                         </Select>
                         <Input
                           type="text"
-                          placeholder="https://api.example.com/v1/users  or  curl …"
+                          placeholder="https://api.example.com/v1/users  or  paste curl …"
                           value={activeTab.url}
                           onChange={(e) => handleUrlChange(e.target.value)}
                           onPaste={(e) => {
