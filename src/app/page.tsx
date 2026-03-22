@@ -100,6 +100,7 @@ import {
 } from './types';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { JsonViewer } from '@/components/json-viewer';
 
 const createNewTab = (): RequestTab => ({
   id: doc(collection(db, 'temp')).id,
@@ -1491,9 +1492,18 @@ export default function Home() {
                             </TabsList>
                             <TabsContent value="pretty" className="mt-0">
                               <ScrollArea className="h-[400px]">
-                                <pre className="p-4 pt-0 font-code text-sm whitespace-pre-wrap break-all">
-                                  <code>{prettyBody}</code>
-                                </pre>
+                                {(() => {
+                                  try {
+                                    JSON.parse(rawBody);
+                                    return <JsonViewer value={rawBody} />;
+                                  } catch {
+                                    return (
+                                      <pre className="p-4 pt-0 font-code text-sm whitespace-pre-wrap break-all">
+                                        <code>{prettyBody}</code>
+                                      </pre>
+                                    );
+                                  }
+                                })()}
                               </ScrollArea>
                             </TabsContent>
                             <TabsContent value="raw" className="mt-0">
