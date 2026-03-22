@@ -55,6 +55,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { sendApiRequest } from './actions';
+import { parseCurl, isCurlCommand } from '@/lib/parse-curl';
 import { collection, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import {
@@ -446,6 +447,34 @@ export default function Home() {
     setTabs(tabs.map(tab =>
       tab.id === activeTabId ? { ...tab, ...updates } : tab
     ));
+  };
+
+  const handleUrlChange = (value: string) => {
+    if (isCurlCommand(value)) {
+      const parsed = parseCurl(value);
+      if (parsed) {
+        const newHeaders = parsed.headers.map((h, i) => ({
+          id: Date.now() + i,
+          key: h.key,
+          value: h.value,
+          enabled: true,
+        }));
+        updateActiveTab({
+          url: parsed.url,
+          method: parsed.method as any,
+          headers: newHeaders,
+          requestBody: parsed.body,
+          bodyType: parsed.bodyType,
+        });
+        if (parsed.body) setRequestTab('body');
+        toast({
+          title: 'cURL imported',
+          description: `Extracted ${parsed.method} request with ${newHeaders.length} header${newHeaders.length !== 1 ? 's' : ''}.`,
+        });
+        return;
+      }
+    }
+    updateActiveTab({ url: value });
   };
 
   const handleAddHeader = () => {
@@ -1248,10 +1277,17 @@ export default function Home() {
                           </SelectContent>
                         </Select>
                         <Input
-                          type="url"
-                          placeholder="https://api.example.com/v1/users"
+                          type="text"
+                          placeholder="https://api.example.com/v1/users  or  curl …"
                           value={activeTab.url}
-                          onChange={(e) => updateActiveTab({ url: e.target.value })}
+                          onChange={(e) => handleUrlChange(e.target.value)}
+                          onPaste={(e) => {
+                            const text = e.clipboardData.getData('text');
+                            if (isCurlCommand(text)) {
+                              e.preventDefault();
+                              handleUrlChange(text);
+                            }
+                          }}
                           className="font-code flex-1"
                         />
                         <Button
