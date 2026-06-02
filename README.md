@@ -66,4 +66,17 @@ Follow these steps to set up and run the project on your local machine.
 4.  **Open your browser:**
     Navigate to [http://localhost:9002](http://localhost:9002) to see the application running.
 
+
+### Deployment to Firebase
+
+```bash
+firebase login
+firebase init hosting:frameworks
+
+Choose your region, and the default options for the framework
+npm install
+npm run build
+firebase deploy
+```
+
 That's it! You're now ready to start making API requests.
