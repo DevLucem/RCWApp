@@ -1154,7 +1154,7 @@ export default function Home() {
                 <p className="text-muted-foreground text-sm">A simple, fast, and elegant REST API testing tool.</p>
               </div>
             </div>
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
                   <span>{activeWorkspace?.name || 'Select Workspace'}</span>
@@ -1209,7 +1209,7 @@ export default function Home() {
           </header>
 
           <div className="border-b border-border">
-            <ScrollArea className="w-full whitespace-nowrap">
+            <ScrollArea className="w-full whitespace-nowrap w-0 min-w-full">
               <div className="flex items-center gap-1 p-1">
                 <Button
                   variant="ghost"

@@ -49,10 +49,10 @@
     "recharts": "^2.15.1",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "@ducanh2912/next-pwa": "^10.2.7",
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@ducanh2912/next-pwa": "^10.2.7",
     "@types/node": "^20",
     "@types/react": "^19.2.1",
     "@types/react-dom": "^19.2.1",
